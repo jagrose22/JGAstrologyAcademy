@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Cosmic Academy - Learn Astrology Interactively</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Crimson+Text:ital,wght@0,400;1,400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 25%, #16213e 50%, #0f3460 75%, #1a1a2e 100%);
+            color: #f5f1eb;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #ffd700;
+            font-weight: bold;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-menu a {
+            color: #e6e6fa;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-menu a:hover, .nav-menu a.active {
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+        }
+        
+        .progress-bar {
+            width: 200px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ff69b4);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        /* Floating stars animation */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate;
+        }
+        
+        .star:nth-child(1) { width: 2px; height: 2px; top: 20%; left: 10%; animation-delay: 0s; }
+        .star:nth-child(2) { width: 3px; height: 3px; top: 80%; left: 20%; animation-delay: 1s; }
+        .star:nth-child(3) { width: 1px; height: 1px; top: 30%; left: 85%; animation-delay: 2s; }
+        .star:nth-child(4) { width: 2px; height: 2px; top: 70%; left: 75%; animation-delay: 0.5s; }
+        .star:nth-child(5) { width: 3px; height: 3px; top: 10%; left: 60%; animation-delay: 1.5s; }
+        .star:nth-child(6) { width: 1px; height: 1px; top: 90%; left: 40%; animation-delay: 2.5s; }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 2rem;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #ffd700, #ff69b4, #87ceeb, #ffd700);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 4s ease-in-out infinite;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #b19cd9;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .learning-section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .learning-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.2);
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .mystical-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .mystical-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(138, 43, 226, 0.1));
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .mystical-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
+            border-color: #ffd700;
+        }
+        
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card-icon {
+            font-size: 1.5rem;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+        }
+        
+        .card-essence {
+            color: #e6e6fa;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-description {
+            color: #b19cd9;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        
+        /* Quiz Styles */
+        .quiz-container {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(25, 25, 112, 0.2));
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .quiz-question {
+            font-size: 1.3rem;
+            color: #ffd700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .quiz-options {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #e6e6fa;
+        }
+        
+        .quiz-option:hover {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+        
+        .quiz-option.selected {
+            border-color: #ff69b4;
+            background: rgba(255, 105, 180, 0.2);
+            color: #fff;
+        }
+        
+        .quiz-option.correct {
+            border-color: #00ff00;
+            background: rgba(0, 255, 0, 0.2);
+        }
+        
+        .quiz-option.incorrect {
+            border-color: #ff0000;
+            background: rgba(255, 0, 0, 0.2);
+        }
+        
+        .quiz-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #ffd700, #ff69b4);
+            border: none;
+            border-radius: 25px;
+            padding: 1rem 2rem;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .quiz-score {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-top: 1rem;
+        }
+        
+        .quiz-explanation {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid #ffd700;
+            display: none;
+        }
+        
+        .quiz-explanation.show {
+            display: block;
+        }
+        
+        /* Interactive Elements */
+        .interactive-element {
+            position: relative;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(138, 43, 226, 0.1));
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .zodiac-wheel {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 2rem auto;
+            border-radius: 50%;
+            background: conic-gradient(
+                #ff6b6b 0deg 30deg,
+                #4ecdc4 30deg 60deg,
+                #ffe66d 60deg 90deg,
+                #a8e6cf 90deg 120deg,
+                #ff8b94 120deg 150deg,
+                #b4a7d6 150deg 180deg,
+                #d4a4eb 180deg 210deg,
+                #87ceeb 210deg 240deg,
+                #98fb98 240deg 270deg,
+                #f0e68c 270deg 300deg,
+                #dda0dd 300deg 330deg,
+                #afeeee 330deg 360deg
+            );
+            animation: slowRotate 60s linear infinite;
+            cursor: pointer;
+        }
+        
+        @keyframes slowRotate {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .zodiac-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffd700;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        
+        .achievement-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #ffd700, #ff69b4);
+            color: #000;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            z-index: 2000;
+            display: none;
+            animation: popIn 0.5s ease;
+        }
+        
+        @keyframes popIn {
+            0% { transform: translate(-50%, -50%) scale(0); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            .main-title { font-size: 2.5rem; }
+            .mystical-grid { grid-template-columns: 1fr; }
+            .zodiac-wheel { width: 300px; height: 300px; }
+            .container { padding: 6rem 1rem 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-logo">✨ Cosmic Academy</div>
+        <ul class="nav-menu">
+            <li><a href="#" onclick="showPage('home')" class="active">Home</a></li>
+            <li><a href="#" onclick="showPage('learn')">Learn</a></li>
+            <li><a href="#" onclick="showPage('quiz')">Quiz</a></li>
+            <li><a href="#" onclick="showPage('practice')">Practice</a></li>
+        </ul>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+    </div>
+
+    <div class="container">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <header class="header">
+                <h1 class="main-title">✨ Welcome to Cosmic Academy</h1>
+                <p class="subtitle">Learn Astrology Through Interactive Adventures</p>
+                <p style="color: #b19cd9; font-style: italic;">Discover your cosmic blueprint and unlock the secrets of the stars</p>
+            </header>
+
+            <div class="learning-section">
+                <h2 class="section-title">🌟 Your Learning Journey</h2>
+                <div class="mystical-grid">
+                    <div class="mystical-card" onclick="showPage('learn')">
+                        <div class="card-title"><span class="card-icon">📚</span> Learn the Basics</div>
+                        <div class="card-essence">Houses, Planets, Signs</div>
+                        <div class="card-description">Master the fundamentals of astrology</div>
+                    </div>
+                    <div class="mystical-card" onclick="showPage('quiz')">
+                        <div class="card-title"><span class="card-icon">🧠</span> Test Your Knowledge</div>
+                        <div class="card-essence">Interactive Quizzes</div>
+                        <div class="card-description">Challenge yourself with cosmic questions</div>
+                    </div>
+                    <div class="mystical-card" onclick="showPage('practice')">
+                        <div class="card-title"><span class="card-icon">🔮</span> Practice Reading</div>
+                        <div class="card-essence">Chart Interpretation</div>
+                        <div class="card-description">Learn to read the cosmic stories</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learn Page -->
+        <div id="learn" class="page">
+            <div class="learning-section">
+                <h2 class="section-title">🏠 The Twelve Houses</h2>
+                <p style="text-align: center; margin-bottom: 2rem; color: #e6e6fa;">Click on each house to learn more!</p>
+                
+                <div class="mystical-grid">
+                    <div class="mystical-card" onclick="showHouseDetail(1)">
+                        <div class="card-title"><span class="card-icon">🎭</span> 1st House - The Mask</div>
+                        <div class="card-essence">Your rising sign, first impressions</div>
+                        <div class="card-description">How you appear to the world</div>
+                    </div>
+                    <div class="mystical-card" onclick="showHouseDetail(2)">
+                        <div class="card-title"><span class="card-icon">💎</span> 2nd House - Treasure Chest</div>
+                        <div class="card-essence">Values, money, possessions</div>
+                        <div class="card-description">What you find valuable</div>
+                    </div>
+                    <div class="mystical-card" onclick="showHouseDetail(3)">
+                        <div class="card-title"><span class="card-icon">📝</span> 3rd House - Communication</div>
+                        <div class="card-essence">Learning, siblings, daily talk</div>
+                        <div class="card-description">Your mind's natural rhythm</div>
+                    </div>
+                    <div class="mystical-card" onclick="showHouseDetail(4)">
+                        <div class="card-title"><span class="card-icon">🏡</span> 4th House - Roots</div>
+                        <div class="card-essence">Home, family, foundation</div>
+                        <div class="card-description">Where you retreat to recharge</div>
+                    </div>
+                    <div class="mystical-card" onclick="showHouseDetail(5)">
+                        <div class="card-title"><span class="card-icon">🎨</span> 5th House - Creativity</div>
+                        <div class="card-essence">Romance, creativity, joy</div>
+                        <div class="card-description">What makes your heart sing</div>
+                    </div>
+                    <div class="mystical-card" onclick="showHouseDetail(6)">
+                        <div class="card-title"><span class="card-icon">⚕️</span> 6th House - Service</div>
+                        <div class="card-essence">Work, health, routines</div>
+                        <div class="card-description">The sacred in the mundane</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="learning-section">
+                <h2 class="section-title">🪐 The Planets</h2>
+                <div class="mystical-grid">
+                    <div class="mystical-card" onclick="showPlanetDetail('sun')">
+                        <div class="card-title"><span class="card-icon">☉</span> Sun - Your Core</div>
+                        <div class="card-essence">Identity, ego, life force</div>
+                        <div class="card-description">The hero of your cosmic story</div>
+                    </div>
+                    <div class="mystical-card" onclick="showPlanetDetail('moon')">
+                        <div class="card-title"><span class="card-icon">☽</span> Moon - Your Emotions</div>
+                        <div class="card-essence">Inner world, instincts, needs</div>
+                        <div class="card-description">Your emotional landscape</div>
+                    </div>
+                    <div class="mystical-card" onclick="showPlanetDetail('mercury')">
+                        <div class="card-title"><span class="card-icon">☿</span> Mercury - Your Mind</div>
+                        <div class="card-essence">Communication, thinking</div>
+                        <div class="card-description">How you process the world</div>
+                    </div>
+                    <div class="mystical-card" onclick="showPlanetDetail('venus')">
+                        <div class="card-title"><span class="card-icon">♀</span> Venus - Your Love</div>
+                        <div class="card-essence">Beauty, relationships, values</div>
+                        <div class="card-description">What you find beautiful</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Page -->
+        <div id="quiz" class="page">
+            <div class="learning-section">
+                <h2 class="section-title">🧠 Astrology Knowledge Quiz</h2>
+                
+                <div class="quiz-container" id="quizContainer">
+                    <div class="quiz-question" id="quizQuestion">
+                        Which house represents your career and public image?
+                    </div>
+                    
+                    <div class="quiz-options" id="quizOptions">
+                        <div class="quiz-option" onclick="selectAnswer(0)">1st House</div>
+                        <div class="quiz-option" onclick="selectAnswer(1)">7th House</div>
+                        <div class="quiz-option" onclick="selectAnswer(2)">10th House</div>
+                        <div class="quiz-option" onclick="selectAnswer(3)">12th House</div>
+                    </div>
+                    
+                    <div class="quiz-explanation" id="quizExplanation">
+                        The 10th House is known as the "Mountain Peak" and represents your career, reputation, and how you're seen in the public eye. It's where you climb toward your professional goals!
+                    </div>
+                    
+                    <div class="quiz-controls">
+                        <button class="btn" onclick="checkAnswer()" id="checkBtn">Check Answer</button>
+                        <button class="btn" onclick="nextQuestion()" id="nextBtn" style="display: none;">Next Question</button>
+                    </div>
+                    
+                    <div class="quiz-score" id="quizScore">
+                        Question 1 of 10 | Score: 0/0
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practice Page -->
+        <div id="practice" class="page">
+            <div class="learning-section">
+                <h2 class="section-title">🔮 Practice Zone</h2>
+                
+                <div class="interactive-element">
+                    <h3 style="color: #ffd700; text-align: center; margin-bottom: 1rem;">Interactive Zodiac Wheel</h3>
+                    <p style="text-align: center; color: #e6e6fa; margin-bottom: 2rem;">Click anywhere on the wheel to discover a zodiac sign!</p>
+                    
+                    <div class="zodiac-wheel" onclick="spinWheel()">
+                        <div class="zodiac-center" id="wheelCenter">
+                            <div>
+                                ✨ Click to<br>
+                                Explore! ✨
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-element">
+                    <h3 style="color: #ffd700; text-align: center; margin-bottom: 1rem;">Quick Chart Reading Practice</h3>
+                    <p style="text-align: center; color: #e6e6fa; margin-bottom: 2rem;">Practice interpreting planetary placements</p>
+                    
+                    <div style="text-align: center;">
+                        <button class="btn" onclick="generateRandomChart()">Generate Random Chart</button>
+                    </div>
+                    
+                    <div id="chartPractice" style="display: none; margin-top: 2rem;">
+                        <div style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 1.5rem; border-left: 4px solid #ffd700;">
+                            <h4 style="color: #ffd700; margin-bottom: 1rem;">Practice Chart</h4>
+                            <div id="chartDetails"></div>
+                            <p style="margin-top: 1rem; color: #b19cd9; font-style: italic;">What story does this chart tell? Practice your interpretation!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="achievement-popup" id="achievementPopup">
+        🌟 Achievement Unlocked! 🌟<br>
+        <span id="achievementText">Quiz Master!</span>
+    </div>
+
+    <script>
+        // Global variables
+        let currentPage = 'home';
+        let currentQuestionIndex = 0;
+        let quizScore = 0;
+        let selectedAnswer = null;
+        let userProgress = 0;
+
+        // Quiz questions database
+        const quizQuestions = [
+            {
+                question: "Which house represents your career and public image?",
+                options: ["1st House", "7th House", "10th House", "12th House"],
+                correct: 2,
+                explanation: "The 10th House is known as the 'Mountain Peak' and represents your career, reputation, and how you're seen in the public eye."
+            },
+            {
+                question: "What does the Moon represent in astrology?",
+                options: ["Your ego and identity", "Your emotions and inner world", "Your communication style", "Your career goals"],
+                correct: 1,
+                explanation: "The Moon represents your emotional nature, instincts, subconscious, and how you nurture and need to be nurtured."
+            },
+            {
+                question: "Which sign is known as 'The Transformer'?",
+                options: ["Leo", "Scorpio", "Pisces", "Aries"],
+                correct: 1,
+                explanation: "Scorpio is known as 'The Transformer' - intense, mysterious, and passionate, associated with death, rebirth, and deep transformation."
+            },
+            {
+                question: "What element is associated with Gemini?",
+                options: ["Fire", "Earth", "Air", "Water"],
+                correct: 2,
+                explanation: "Gemini is an Air sign, which gives it qualities of communication, intellect, adaptability, and social connection."
+            },
+            {
+                question: "Which planet rules communication and thinking?",
+                options: ["Venus", "Mars", "Mercury", "Jupiter"],
+                correct: 2,
+                explanation: "Mercury is the swift messenger planet that rules communication, thinking, learning, and how we process information."
+            },
+            {
+                question: "The 5th House is associated with:",
+                options: ["Career and reputation", "Creativity and romance", "Home and family", "Partnerships"],
+                correct: 1,
+                explanation: "The 5th House is the 'Creative Playground' - it rules creativity, romance, children, joy, and self-expression."
+            },
+            {
+                question: "What does Venus represent?",
+                options: ["War and conflict", "Love and beauty", "Communication", "Structure and discipline"],
+                correct: 1,
+                explanation: "Venus is the 'Love Goddess' representing love, beauty, values, attraction, and what we find aesthetically pleasing."
+            },
+            {
+                question: "Which sign is a Fixed Water sign?",
+                options: ["Cancer", "Pisces", "Scorpio", "Aquarius"],
+                correct: 2,
+                explanation: "Scorpio is the Fixed Water sign - it has the emotional depth of water with the determination and intensity of a fixed sign."
+            },
+            {
+                question: "The 12th House is known as:",
+                options: ["The Treasure Chest", "The Mystical Ocean", "The Mountain Peak", "The Creative Playground"],
+                correct: 1,
+                explanation: "The 12th House is 'The Mystical Ocean' - it represents spirituality, the subconscious, hidden things, and connection to the divine."
+            },
+            {
+                question: "What does a bi-wheel chart show?",
+                options: ["Two different people's charts", "Your chart vs current planetary positions", "Past and future predictions", "Sun and Moon positions only"],
+                correct: 1,
+                explanation: "A bi-wheel shows your natal chart (inner wheel) compared with current planetary positions (outer wheel), perfect for timing and understanding current cosmic influences."
+            }
+        ];
+
+        // Zodiac signs data
+        const zodiacSigns = [
+            { name: "Aries", symbol: "♈", element: "Fire", description: "The Pioneer - Brave, impulsive, natural leader" },
+            { name: "Taurus", symbol: "♉", element: "Earth", description: "The Builder - Steady, sensual, determined" },
+            { name: "Gemini", symbol: "♊", element: "Air", description: "The Communicator - Curious, adaptable, social" },
+            { name: "Cancer", symbol: "♋", element: "Water", description: "The Nurturer - Emotional, protective, intuitive" },
+            { name: "Leo", symbol: "♌", element: "Fire", description: "The Performer - Dramatic, generous, creative" },
+            { name: "Virgo", symbol: "♍", element: "Earth", description: "The Perfectionist - Analytical, helpful, detail-oriented" },
+            { name: "Libra", symbol: "♎", element: "Air", description: "The Diplomat - Harmonious, partnership-focused, artistic" },
+            { name: "Scorpio", symbol: "♏", element: "Water", description: "The Transformer - Intense, mysterious, passionate" },
+            { name: "Sagittarius", symbol: "♐", element: "Fire", description: "The Adventurer - Philosophical, freedom-loving" },
+            { name: "Capricorn", symbol: "♑", element: "Earth", description: "The Achiever - Ambitious, disciplined, practical" },
+            { name: "Aquarius", symbol: "♒", element: "Air", description: "The Innovator - Independent, humanitarian, eccentric" },
+            { name: "Pisces", symbol: "♓", element: "Water", description: "The Mystic - Intuitive, compassionate, artistic" }
+        ];
+
+        // Navigation functions
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[onclick="showPage('${pageId}')"]`).classList.add('active');
+            
+            currentPage = pageId;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const totalPages = 4;
+            const visitedPages = new Set();
+            visitedPages.add(currentPage);
+            const progress = (visitedPages.size / totalPages) * 100;
+            document.getElementById('progressFill').style.width = `${Math.min(progress + userProgress, 100)}%`;
+        }
+
+        // Quiz functions
+        function selectAnswer(index) {
+            // Remove previous selections
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            document.querySelectorAll('.quiz-option')[index].classList.add('selected');
+            selectedAnswer = index;
+            
+            // Enable check button
+            document.getElementById('checkBtn').disabled = false;
+        }
+
+        function checkAnswer() {
+            if (selectedAnswer === null) return;
+            
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            
+            // Show correct/incorrect
+            options.forEach((option, index) => {
+                if (index === currentQuestion.correct) {
+                    option.classList.add('correct');
+                } else if (index === selectedAnswer && index !== currentQuestion.correct) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            // Update score
+            if (selectedAnswer === currentQuestion.correct) {
+                quizScore++;
+                showAchievement("Correct! ⭐");
+            }
+            
+            // Show explanation
+            document.getElementById('quizExplanation').classList.add('show');
+            document.getElementById('quizExplanation').textContent = currentQuestion.explanation;
+            
+            // Update buttons
+            document.getElementById('checkBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'inline-block';
+            
+            updateQuizScore();
+            userProgress += 5;
+            updateProgress();
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex >= quizQuestions.length) {
+                showQuizComplete();
+                return;
+            }
+            
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            
+            // Reset UI
+            document.getElementById('quizQuestion').textContent = currentQuestion.question;
+            document.getElementById('quizExplanation').classList.remove('show');
+            document.getElementById('checkBtn').style.display = 'inline-block';
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('checkBtn').disabled = true;
+            selectedAnswer = null;
+            
+            // Load options
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'quiz-option';
+                optionElement.textContent = option;
+                optionElement.onclick = () => selectAnswer(index);
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            updateQuizScore();
+        }
+
+        function updateQuizScore() {
+            document.getElementById('quizScore').textContent = 
+                `Question ${currentQuestionIndex + 1} of ${quizQuestions.length} | Score: ${quizScore}/${currentQuestionIndex + (selectedAnswer !== null ? 1 : 0)}`;
+        }
+
+        function showQuizComplete() {
+            const percentage = Math.round((quizScore / quizQuestions.length) * 100);
+            let message = "";
+            
+            if (percentage >= 90) {
+                message = "🌟 Astrology Master! 🌟";
+            } else if (percentage >= 70) {
+                message = "✨ Cosmic Scholar! ✨";
+            } else if (percentage >= 50) {
+                message = "🌙 Star Student! 🌙";
+            } else {
+                message = "🌱 Keep Learning! 🌱";
+            }
+            
+            document.getElementById('quizContainer').innerHTML = `
+                <div style="text-align: center;">
+                    <h3 style="color: #ffd700; margin-bottom: 1rem;">${message}</h3>
+                    <p style="font-size: 1.5rem; color: #e6e6fa; margin-bottom: 1rem;">
+                        You scored ${quizScore} out of ${quizQuestions.length} (${percentage}%)
+                    </p>
+                    <button class="btn" onclick="restartQuiz()">Take Quiz Again</button>
+                    <button class="btn" onclick="showPage('practice')">Practice More</button>
+                </div>
+            `;
+            
+            showAchievement(message);
+            userProgress += 20;
+            updateProgress();
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            quizScore = 0;
+            selectedAnswer = null;
+            
+            // Reset quiz container
+            document.getElementById('quizContainer').innerHTML = `
+                <div class="quiz-question" id="quizQuestion"></div>
+                <div class="quiz-options" id="quizOptions"></div>
+                <div class="quiz-explanation" id="quizExplanation"></div>
+                <div class="quiz-controls">
+                    <button class="btn" onclick="checkAnswer()" id="checkBtn">Check Answer</button>
+                    <button class="btn" onclick="nextQuestion()" id="nextBtn" style="display: none;">Next Question</button>
+                </div>
+                <div class="quiz-score" id="quizScore"></div>
+            `;
+            
+            loadQuestion();
+        }
+
+        // Interactive elements
+        function showHouseDetail(houseNumber) {
+            const houseInfo = {
+                1: { name: "1st House - The Mask", description: "This is your Ascendant or Rising Sign! It's how others first see you, your physical appearance, and your natural approach to new situations. Think of it as the costume you wear when you step onto the world's stage." },
+                2: { name: "2nd House - Treasure Chest", description: "Your personal values, money, possessions, and self-worth live here. This house shows what you truly value in life and how you handle material resources. It's also about your relationship with money and material security." },
+                3: { name: "3rd House - Communication Hub", description: "This house governs how you communicate, learn, and connect with siblings and neighbors. It's about short trips, daily conversations, and how your mind naturally processes information. Your writing style and learning preferences are found here." },
+                4: { name: "4th House - Roots & Sanctuary", description: "Your home, family roots, and emotional foundation. This house represents where you come from, your relationship with your mother or nurturing parent, and what makes you feel emotionally secure. It's your private retreat from the world." },
+                5: { name: "5th House - Creative Playground", description: "Romance, creativity, children, and joy! This house is all about what makes your heart sing - your creative expression, romantic style, relationship with children, and what brings you pure pleasure and fun." },
+                6: { name: "6th House - Daily Rituals", description: "Your work environment, health habits, daily routines, and service to others. This house shows how you maintain your body and mind, your work ethic, and how you serve the world through your daily actions." }
+            };
+            
+            const info = houseInfo[houseNumber];
+            showAchievement(`Learning about ${info.name}!`);
+            
+            // You could expand this to show detailed popups or modal windows
+            alert(`${info.name}\n\n${info.description}`);
+        }
+
+        function showPlanetDetail(planet) {
+            const planetInfo = {
+                sun: { name: "☉ The Sun", description: "Your core identity and life force! The Sun represents your ego, vitality, and the essential 'you' that shines through everything you do. It's your conscious mind and the hero's journey of your life story." },
+                moon: { name: "☽ The Moon", description: "Your emotional landscape and inner world. The Moon governs your instincts, subconscious reactions, and how you process feelings. It shows what you need to feel emotionally secure and nurtured." },
+                mercury: { name: "☿ Mercury", description: "Your mental processes and communication style. Mercury rules how you think, learn, speak, and connect with others. It's your intellectual approach to life and how you share your thoughts with the world." },
+                venus: { name: "♀ Venus", description: "Your love nature and aesthetic sense. Venus shows how you express affection, what you find beautiful, and how you attract others. It's your artistic taste and relationship style." }
+            };
+            
+            const info = planetInfo[planet];
+            showAchievement(`Exploring ${info.name}!`);
+            alert(`${info.name}\n\n${info.description}`);
+        }
+
+        function spinWheel() {
+            const randomSign = zodiacSigns[Math.floor(Math.random() * zodiacSigns.length)];
+            const wheelCenter = document.getElementById('wheelCenter');
+            
+            wheelCenter.innerHTML = `
+                <div>
+                    ${randomSign.symbol}<br>
+                    <strong>${randomSign.name}</strong><br>
+                    <small>${randomSign.element}</small><br>
+                    <em>${randomSign.description}</em>
+                </div>
+            `;
+            
+            showAchievement(`Discovered ${randomSign.name}!`);
+            userProgress += 2;
+            updateProgress();
+        }
+
+        function generateRandomChart() {
+            const planets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars'];
+            const houses = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th'];
+            const randomPlanet = planets[Math.floor(Math.random() * planets.length)];
+            const randomSign = zodiacSigns[Math.floor(Math.random() * zodiacSigns.length)];
+            const randomHouse = houses[Math.floor(Math.random() * houses.length)];
+            
+            document.getElementById('chartPractice').style.display = 'block';
+            document.getElementById('chartDetails').innerHTML = `
+                <p><strong>${randomPlanet}</strong> in <strong>${randomSign.name}</strong> in the <strong>${randomHouse} House</strong></p>
+                <p style="margin-top: 0.5rem; color: #b19cd9;">
+                    ${randomSign.symbol} ${randomSign.description}
+                </p>
+            `;
+            
+            showAchievement('Generated Practice Chart!');
+            userProgress += 3;
+            updateProgress();
+        }
+
+        function showAchievement(text) {
+            const popup = document.getElementById('achievementPopup');
+            document.getElementById('achievementText').textContent = text;
+            popup.style.display = 'block';
+            
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 2000);
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadQuestion();
+            updateProgress();
+            
+            // Add some initial achievements for engagement
+            setTimeout(() => {
+                showAchievement('Welcome to Cosmic Academy! 🌟');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
