@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ Cosmic Academy - Learn Astrology Interactively</title>
+    <title>✨ Cosmic Academy - Complete Astrology Learning</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Crimson+Text:ital,wght@0,400;1,400&display=swap');
         
@@ -46,7 +46,7 @@
         
         .nav-menu {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             list-style: none;
         }
         
@@ -56,6 +56,7 @@
             padding: 0.5rem 1rem;
             border-radius: 20px;
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
         
         .nav-menu a:hover, .nav-menu a.active {
@@ -181,10 +182,18 @@
             position: relative;
         }
         
+        .section-subtitle {
+            text-align: center;
+            color: #e6e6fa;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
         .mystical-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
             margin-top: 2rem;
         }
         
@@ -207,7 +216,7 @@
         
         .card-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #ffd700;
             margin-bottom: 0.5rem;
             display: flex;
@@ -224,12 +233,33 @@
             color: #e6e6fa;
             font-size: 1rem;
             margin-bottom: 0.5rem;
+            font-weight: 500;
         }
         
         .card-description {
             color: #b19cd9;
             font-size: 0.9rem;
             font-style: italic;
+        }
+        
+        .educational-content {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.15), rgba(25, 25, 112, 0.15));
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 4px solid #ffd700;
+        }
+        
+        .educational-content h3 {
+            color: #ffd700;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .educational-content p {
+            margin-bottom: 1rem;
+            color: #e6e6fa;
         }
         
         /* Quiz Styles */
@@ -345,8 +375,8 @@
         
         .zodiac-wheel {
             position: relative;
-            width: 400px;
-            height: 400px;
+            width: 350px;
+            height: 350px;
             margin: 2rem auto;
             border-radius: 50%;
             background: conic-gradient(
@@ -376,15 +406,15 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             background: radial-gradient(circle, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #ffd700;
-            font-size: 1.2rem;
+            font-size: 1rem;
             text-align: center;
         }
         
@@ -410,14 +440,42 @@
             100% { transform: translate(-50%, -50%) scale(1); }
         }
         
+        .detailed-info {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .element-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 0.2rem;
+        }
+        
+        .fire { background: #ff6b6b; color: white; }
+        .earth { background: #8b4513; color: white; }
+        .air { background: #87ceeb; color: black; }
+        .water { background: #4682b4; color: white; }
+        
         @media (max-width: 768px) {
             .nav-menu {
-                display: none;
+                gap: 0.5rem;
+            }
+            .nav-menu a {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.8rem;
             }
             .main-title { font-size: 2.5rem; }
             .mystical-grid { grid-template-columns: 1fr; }
-            .zodiac-wheel { width: 300px; height: 300px; }
+            .zodiac-wheel { width: 280px; height: 280px; }
+            .zodiac-center { width: 140px; height: 140px; font-size: 0.9rem; }
             .container { padding: 6rem 1rem 2rem; }
+            .progress-bar { width: 100px; }
         }
     </style>
 </head>
@@ -426,7 +484,10 @@
         <div class="nav-logo">✨ Cosmic Academy</div>
         <ul class="nav-menu">
             <li><a href="#" onclick="showPage('home')" class="active">Home</a></li>
-            <li><a href="#" onclick="showPage('learn')">Learn</a></li>
+            <li><a href="#" onclick="showPage('basics')">Basics</a></li>
+            <li><a href="#" onclick="showPage('houses')">Houses</a></li>
+            <li><a href="#" onclick="showPage('planets')">Planets</a></li>
+            <li><a href="#" onclick="showPage('signs')">Signs</a></li>
             <li><a href="#" onclick="showPage('quiz')">Quiz</a></li>
             <li><a href="#" onclick="showPage('practice')">Practice</a></li>
         </ul>
@@ -451,95 +512,374 @@
         <div id="home" class="page active">
             <header class="header">
                 <h1 class="main-title">✨ Welcome to Cosmic Academy</h1>
-                <p class="subtitle">Learn Astrology Through Interactive Adventures</p>
-                <p style="color: #b19cd9; font-style: italic;">Discover your cosmic blueprint and unlock the secrets of the stars</p>
+                <p class="subtitle">Master Astrology Through Interactive Learning</p>
+                <p style="color: #b19cd9; font-style: italic;">Your complete guide to understanding the cosmic blueprint of your soul</p>
             </header>
 
             <div class="learning-section">
-                <h2 class="section-title">🌟 Your Learning Journey</h2>
+                <h2 class="section-title">🌟 Your Learning Path</h2>
                 <div class="mystical-grid">
-                    <div class="mystical-card" onclick="showPage('learn')">
-                        <div class="card-title"><span class="card-icon">📚</span> Learn the Basics</div>
-                        <div class="card-essence">Houses, Planets, Signs</div>
-                        <div class="card-description">Master the fundamentals of astrology</div>
+                    <div class="mystical-card" onclick="showPage('basics')">
+                        <div class="card-title"><span class="card-icon">📖</span> The Fundamentals</div>
+                        <div class="card-essence">Natal Charts, Rising Signs, Birth Maps</div>
+                        <div class="card-description">Understand what astrology is and how it works</div>
+                    </div>
+                    <div class="mystical-card" onclick="showPage('houses')">
+                        <div class="card-title"><span class="card-icon">🏠</span> The 12 Houses</div>
+                        <div class="card-essence">Life Areas & Experiences</div>
+                        <div class="card-description">Rooms in your cosmic home</div>
+                    </div>
+                    <div class="mystical-card" onclick="showPage('planets')">
+                        <div class="card-title"><span class="card-icon">🪐</span> All the Planets</div>
+                        <div class="card-essence">Cosmic Energies & Archetypes</div>
+                        <div class="card-description">From Sun to Pluto and beyond</div>
+                    </div>
+                    <div class="mystical-card" onclick="showPage('signs')">
+                        <div class="card-title"><span class="card-icon">⭐</span> The 12 Zodiac Signs</div>
+                        <div class="card-essence">Personality Flavors & Elements</div>
+                        <div class="card-description">The cosmic personality archetypes</div>
                     </div>
                     <div class="mystical-card" onclick="showPage('quiz')">
                         <div class="card-title"><span class="card-icon">🧠</span> Test Your Knowledge</div>
-                        <div class="card-essence">Interactive Quizzes</div>
-                        <div class="card-description">Challenge yourself with cosmic questions</div>
+                        <div class="card-essence">Interactive Quizzes & Challenges</div>
+                        <div class="card-description">Master what you've learned</div>
                     </div>
                     <div class="mystical-card" onclick="showPage('practice')">
-                        <div class="card-title"><span class="card-icon">🔮</span> Practice Reading</div>
-                        <div class="card-essence">Chart Interpretation</div>
-                        <div class="card-description">Learn to read the cosmic stories</div>
+                        <div class="card-title"><span class="card-icon">🔮</span> Practice & Explore</div>
+                        <div class="card-essence">Interactive Tools & Games</div>
+                        <div class="card-description">Apply your cosmic knowledge</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Learn Page -->
-        <div id="learn" class="page">
+        <!-- Basics Page -->
+        <div id="basics" class="page">
+            <div class="learning-section">
+                <h2 class="section-title">📖 Astrology Fundamentals</h2>
+                <p class="section-subtitle">Master the essential concepts before diving deeper</p>
+                
+                <div class="educational-content">
+                    <h3>🌟 What is a Natal Chart?</h3>
+                    <p>Your natal chart (also called a birth chart) is a cosmic snapshot of the sky at the exact moment and location you were born. It's like a celestial photograph that captures where each planet was positioned in the zodiac signs and houses.</p>
+                    <p><strong>Think of it as:</strong> Your soul's blueprint, a cosmic DNA test, or a map of your potential and personality traits written in the stars.</p>
+                </div>
+
+                <div class="educational-content">
+                    <h3>🎭 What is Your Rising Sign (Ascendant)?</h3>
+                    <p>Your Rising Sign is the zodiac sign that was rising on the eastern horizon at your exact time and place of birth. It's the "mask" you wear when meeting new people and how others first perceive you.</p>
+                    <p><strong>Key Points:</strong></p>
+                    <p>• It changes every 2 hours, making exact birth time crucial</p>
+                    <p>• Represents your outer personality and first impressions</p>
+                    <p>• Rules your physical appearance and natural demeanor</p>
+                    <p>• Acts as the "lens" through which you see the world</p>
+                </div>
+
+                <div class="educational-content">
+                    <h3>🎯 The Purpose of Astrology</h3>
+                    <p>Astrology serves as a tool for self-understanding and personal growth. It's not about prediction or fate, but about understanding your cosmic potential and working with your natural energies.</p>
+                    <p><strong>Astrology helps you:</strong></p>
+                    <p>• Understand your personality patterns and motivations</p>
+                    <p>• Recognize your natural talents and challenges</p>
+                    <p>• Improve relationships by understanding others' cosmic blueprints</p>
+                    <p>• Choose optimal timing for important decisions</p>
+                    <p>• Find meaning and direction in your life journey</p>
+                </div>
+
+                <div class="educational-content">
+                    <h3>🔄 The Big Three: Your Core Identity</h3>
+                    <p>The most important parts of your chart are called "The Big Three":</p>
+                    <p><strong>☉ Sun Sign:</strong> Your core identity, ego, and life force - who you are at your essence</p>
+                    <p><strong>☽ Moon Sign:</strong> Your emotional nature, instincts, and inner world - how you feel and process emotions</p>
+                    <p><strong>⬆️ Rising Sign:</strong> Your outer personality and first impressions - how you appear to others</p>
+                    <p>Together, these three signs create a more complete picture than just your Sun sign alone!</p>
+                </div>
+
+                <div class="educational-content">
+                    <h3>🏠 How the Chart is Organized</h3>
+                    <p>Your natal chart is divided into three main components:</p>
+                    <p><strong>🪐 Planets:</strong> The cosmic actors (what energies are active)</p>
+                    <p><strong>⭐ Signs:</strong> The personality flavors (how the energies express)</p>
+                    <p><strong>🏠 Houses:</strong> The life areas (where the energies manifest)</p>
+                    <p>Example: "Venus in Scorpio in the 7th House" means your love nature (Venus) is intense and transformative (Scorpio) and shows up strongly in your partnerships (7th House).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Houses Page -->
+        <div id="houses" class="page">
             <div class="learning-section">
                 <h2 class="section-title">🏠 The Twelve Houses</h2>
-                <p style="text-align: center; margin-bottom: 2rem; color: #e6e6fa;">Click on each house to learn more!</p>
+                <p class="section-subtitle">The life areas where cosmic energies manifest</p>
                 
                 <div class="mystical-grid">
                     <div class="mystical-card" onclick="showHouseDetail(1)">
-                        <div class="card-title"><span class="card-icon">🎭</span> 1st House - The Mask</div>
-                        <div class="card-essence">Your rising sign, first impressions</div>
-                        <div class="card-description">How you appear to the world</div>
+                        <div class="card-title"><span class="card-icon">🎭</span> 1st House - The Self</div>
+                        <div class="card-essence">Identity, Appearance, First Impressions</div>
+                        <div class="card-description">Your Rising Sign, physical body, and how you approach life</div>
                     </div>
                     <div class="mystical-card" onclick="showHouseDetail(2)">
-                        <div class="card-title"><span class="card-icon">💎</span> 2nd House - Treasure Chest</div>
-                        <div class="card-essence">Values, money, possessions</div>
-                        <div class="card-description">What you find valuable</div>
+                        <div class="card-title"><span class="card-icon">💎</span> 2nd House - Resources</div>
+                        <div class="card-essence">Money, Values, Possessions, Self-Worth</div>
+                        <div class="card-description">What you value, earn, and find beautiful</div>
                     </div>
                     <div class="mystical-card" onclick="showHouseDetail(3)">
                         <div class="card-title"><span class="card-icon">📝</span> 3rd House - Communication</div>
-                        <div class="card-essence">Learning, siblings, daily talk</div>
-                        <div class="card-description">Your mind's natural rhythm</div>
+                        <div class="card-essence">Learning, Siblings, Local Travel, Daily Life</div>
+                        <div class="card-description">How you think, communicate, and learn</div>
                     </div>
                     <div class="mystical-card" onclick="showHouseDetail(4)">
-                        <div class="card-title"><span class="card-icon">🏡</span> 4th House - Roots</div>
-                        <div class="card-essence">Home, family, foundation</div>
-                        <div class="card-description">Where you retreat to recharge</div>
+                        <div class="card-title"><span class="card-icon">🏡</span> 4th House - Home & Roots</div>
+                        <div class="card-essence">Family, Home, Emotional Foundation, Mother</div>
+                        <div class="card-description">Your private life and emotional security</div>
                     </div>
                     <div class="mystical-card" onclick="showHouseDetail(5)">
-                        <div class="card-title"><span class="card-icon">🎨</span> 5th House - Creativity</div>
-                        <div class="card-essence">Romance, creativity, joy</div>
-                        <div class="card-description">What makes your heart sing</div>
+                        <div class="card-title"><span class="card-icon">🎨</span> 5th House - Creativity & Joy</div>
+                        <div class="card-essence">Romance, Children, Creativity, Fun, Self-Expression</div>
+                        <div class="card-description">What brings you joy and creative fulfillment</div>
                     </div>
                     <div class="mystical-card" onclick="showHouseDetail(6)">
-                        <div class="card-title"><span class="card-icon">⚕️</span> 6th House - Service</div>
-                        <div class="card-essence">Work, health, routines</div>
-                        <div class="card-description">The sacred in the mundane</div>
+                        <div class="card-title"><span class="card-icon">⚕️</span> 6th House - Health & Service</div>
+                        <div class="card-essence">Work, Health, Daily Routines, Service to Others</div>
+                        <div class="card-description">Your work environment and wellness habits</div>
+                    </div>
+                    <div class="mystical-card" onclick="showHouseDetail(7)">
+                        <div class="card-title"><span class="card-icon">👥</span> 7th House - Partnerships</div>
+                        <div class="card-essence">Marriage, Business Partners, Open Enemies</div>
+                        <div class="card-description">What you seek in relationships and partnerships</div>
+                    </div>
+                    <div class="mystical-card" onclick="showHouseDetail(8)">
+                        <div class="card-title"><span class="card-icon">🔮</span> 8th House - Transformation</div>
+                        <div class="card-essence">Death/Rebirth, Shared Resources, Psychology, Occult</div>
+                        <div class="card-description">Deep transformation and shared resources</div>
+                    </div>
+                    <div class="mystical-card" onclick="showHouseDetail(9)">
+                        <div class="card-title"><span class="card-icon">✈️</span> 9th House - Higher Learning</div>
+                        <div class="card-essence">Philosophy, Higher Education, Foreign Travel, Religion</div>
+                        <div class="card-description">Your search for meaning and truth</div>
+                    </div>
+                    <div class="mystical-card" onclick="showHouseDetail(10)">
+                        <div class="card-title"><span class="card-icon">🏔️</span> 10th House - Career & Reputation</div>
+                        <div class="card-essence">Career, Public Image, Authority, Father, Legacy</div>
+                        <div class="card-description">Your professional life and public reputation</div>
+                    </div>
+                    <div class="mystical-card" onclick="showHouseDetail(11)">
+                        <div class="card-title"><span class="card-icon">🌟</span> 11th House - Community</div>
+                        <div class="card-essence">Friends, Groups, Hopes, Dreams, Social Causes</div>
+                        <div class="card-description">Your social circles and humanitarian ideals</div>
+                    </div>
+                    <div class="mystical-card" onclick="showHouseDetail(12)">
+                        <div class="card-title"><span class="card-icon">🌊</span> 12th House - Spirituality</div>
+                        <div class="card-essence">Subconscious, Dreams, Spirituality, Hidden Enemies</div>
+                        <div class="card-description">Your connection to the divine and subconscious mind</div>
                     </div>
                 </div>
             </div>
+        </div>
 
+        <!-- Planets Page -->
+        <div id="planets" class="page">
             <div class="learning-section">
-                <h2 class="section-title">🪐 The Planets</h2>
+                <h2 class="section-title">🪐 The Planetary Energies</h2>
+                <p class="section-subtitle">Each planet represents different aspects of your personality and life experience</p>
+                
+                <div class="educational-content">
+                    <h3>🌟 Personal Planets (Fast-Moving, Individual Traits)</h3>
+                    <p>These planets change signs frequently and represent your core personality traits.</p>
+                </div>
+                
                 <div class="mystical-grid">
                     <div class="mystical-card" onclick="showPlanetDetail('sun')">
-                        <div class="card-title"><span class="card-icon">☉</span> Sun - Your Core</div>
-                        <div class="card-essence">Identity, ego, life force</div>
-                        <div class="card-description">The hero of your cosmic story</div>
+                        <div class="card-title"><span class="card-icon">☉</span> Sun - Your Core Self</div>
+                        <div class="card-essence">Identity, Ego, Life Force, Vitality</div>
+                        <div class="card-description">Your essential self and conscious identity</div>
                     </div>
                     <div class="mystical-card" onclick="showPlanetDetail('moon')">
                         <div class="card-title"><span class="card-icon">☽</span> Moon - Your Emotions</div>
-                        <div class="card-essence">Inner world, instincts, needs</div>
-                        <div class="card-description">Your emotional landscape</div>
+                        <div class="card-essence">Emotions, Instincts, Subconscious, Needs</div>
+                        <div class="card-description">Your emotional nature and inner world</div>
                     </div>
                     <div class="mystical-card" onclick="showPlanetDetail('mercury')">
                         <div class="card-title"><span class="card-icon">☿</span> Mercury - Your Mind</div>
-                        <div class="card-essence">Communication, thinking</div>
-                        <div class="card-description">How you process the world</div>
+                        <div class="card-essence">Communication, Thinking, Learning, Ideas</div>
+                        <div class="card-description">How you think, communicate, and process information</div>
                     </div>
                     <div class="mystical-card" onclick="showPlanetDetail('venus')">
-                        <div class="card-title"><span class="card-icon">♀</span> Venus - Your Love</div>
-                        <div class="card-essence">Beauty, relationships, values</div>
-                        <div class="card-description">What you find beautiful</div>
+                        <div class="card-title"><span class="card-icon">♀</span> Venus - Your Love Nature</div>
+                        <div class="card-essence">Love, Beauty, Values, Attraction, Art</div>
+                        <div class="card-description">How you love, what you value, and aesthetic preferences</div>
                     </div>
+                    <div class="mystical-card" onclick="showPlanetDetail('mars')">
+                        <div class="card-title"><span class="card-icon">♂</span> Mars - Your Drive</div>
+                        <div class="card-essence">Action, Desire, Anger, Energy, Sexuality</div>
+                        <div class="card-description">How you assert yourself and pursue your desires</div>
+                    </div>
+                </div>
+
+                <div class="educational-content">
+                    <h3>🌍 Social Planets (Bridge Between Personal & Collective)</h3>
+                    <p>These planets influence your role in society and personal growth.</p>
+                </div>
+                
+                <div class="mystical-grid">
+                    <div class="mystical-card" onclick="showPlanetDetail('jupiter')">
+                        <div class="card-title"><span class="card-icon">♃</span> Jupiter - Your Expansion</div>
+                        <div class="card-essence">Growth, Luck, Wisdom, Philosophy, Optimism</div>
+                        <div class="card-description">Where you grow, learn, and find meaning</div>
+                    </div>
+                    <div class="mystical-card" onclick="showPlanetDetail('saturn')">
+                        <div class="card-title"><span class="card-icon">♄</span> Saturn - Your Lessons</div>
+                        <div class="card-essence">Structure, Discipline, Limitations, Karma, Mastery</div>
+                        <div class="card-description">Your greatest teacher and where you build mastery</div>
+                    </div>
+                </div>
+
+                <div class="educational-content">
+                    <h3>🌌 Outer Planets (Generational & Transpersonal)</h3>
+                    <p>These slow-moving planets influence entire generations and spiritual evolution.</p>
+                </div>
+                
+                <div class="mystical-grid">
+                    <div class="mystical-card" onclick="showPlanetDetail('uranus')">
+                        <div class="card-title"><span class="card-icon">⚡</span> Uranus - Your Revolution</div>
+                        <div class="card-essence">Innovation, Rebellion, Freedom, Sudden Change</div>
+                        <div class="card-description">Where you break free and express your uniqueness</div>
+                    </div>
+                    <div class="mystical-card" onclick="showPlanetDetail('neptune')">
+                        <div class="card-title"><span class="card-icon">🔮</span> Neptune - Your Dreams</div>
+                        <div class="card-essence">Spirituality, Illusion, Dreams, Compassion, Art</div>
+                        <div class="card-description">Your connection to the divine and imagination</div>
+                    </div>
+                    <div class="mystical-card" onclick="showPlanetDetail('pluto')">
+                        <div class="card-title"><span class="card-icon">🔥</span> Pluto - Your Transformation</div>
+                        <div class="card-essence">Death/Rebirth, Power, Transformation, Psychology</div>
+                        <div class="card-description">Your deepest transformations and hidden power</div>
+                    </div>
+                </div>
+
+                <div class="educational-content">
+                    <h3>🌟 Special Points & Asteroids</h3>
+                    <p>Additional cosmic influences that add depth to your chart.</p>
+                </div>
+                
+                <div class="mystical-grid">
+                    <div class="mystical-card" onclick="showPlanetDetail('chiron')">
+                        <div class="card-title"><span class="card-icon">🏥</span> Chiron - Your Healing</div>
+                        <div class="card-essence">Wounded Healer, Deep Healing, Teaching Through Pain</div>
+                        <div class="card-description">Your deepest wound that becomes your greatest gift</div>
+                    </div>
+                    <div class="mystical-card" onclick="showPlanetDetail('eris')">
+                        <div class="card-title"><span class="card-icon">⚔️</span> Eris - Your Disruption</div>
+                        <div class="card-essence">Discord, Competition, Feminine Rage, Truth-Telling</div>
+                        <div class="card-description">Where you disrupt systems and fight for justice</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signs Page -->
+        <div id="signs" class="page">
+            <div class="learning-section">
+                <h2 class="section-title">⭐ The Twelve Zodiac Signs</h2>
+                <p class="section-subtitle">The cosmic personality archetypes and their elemental energies</p>
+                
+                <div class="educational-content">
+                    <h3>🔥 Fire Signs - The Initiators</h3>
+                    <p>Fire signs are passionate, energetic, and action-oriented. They lead with enthusiasm and inspire others.</p>
+                </div>
+                
+                <div class="mystical-grid">
+                    <div class="mystical-card" onclick="showSignDetail('aries')">
+                        <div class="card-title"><span class="card-icon">🐏</span> ♈ Aries - The Pioneer</div>
+                        <div class="card-essence"><span class="element-badge fire">Fire</span> Cardinal - "I Am"</div>
+                        <div class="card-description">Brave, impulsive, leadership-focused, competitive</div>
+                    </div>
+                    <div class="mystical-card" onclick="showSignDetail('leo')">
+                        <div class="card-title"><span class="card-icon">🦁</span> ♌ Leo - The Performer</div>
+                        <div class="card-essence"><span class="element-badge fire">Fire</span> Fixed - "I Will"</div>
+                        <div class="card-description">Dramatic, generous, creative, confident</div>
+                    </div>
+                    <div class="mystical-card" onclick="showSignDetail('sagittarius')">
+                        <div class="card-title"><span class="card-icon">🏹</span> ♐ Sagittarius - The Adventurer</div>
+                        <div class="card-essence"><span class="element-badge fire">Fire</span> Mutable - "I See"</div>
+                        <div class="card-description">Philosophical, freedom-loving, optimistic, adventurous</div>
+                    </div>
+                </div>
+
+                <div class="educational-content">
+                    <h3>🌍 Earth Signs - The Builders</h3>
+                    <p>Earth signs are practical, stable, and material-focused. They create lasting foundations and value security.</p>
+                </div>
+                
+                <div class="mystical-grid">
+                    <div class="mystical-card" onclick="showSignDetail('taurus')">
+                        <div class="card-title"><span class="card-icon">🐂</span> ♉ Taurus - The Builder</div>
+                        <div class="card-essence"><span class="element-badge earth">Earth</span> Fixed - "I Have"</div>
+                        <div class="card-description">Steady, sensual, stubborn, luxury-loving</div>
+                    </div>
+                    <div class="mystical-card" onclick="showSignDetail('virgo')">
+                        <div class="card-title"><span class="card-icon">👤</span> ♍ Virgo - The Perfectionist</div>
+                        <div class="card-essence"><span class="element-badge earth">Earth</span> Mutable - "I Analyze"</div>
+                        <div class="card-description">Analytical, helpful, detail-oriented, service-focused</div>
+                    </div>
+                    <div class="mystical-card" onclick="showSignDetail('capricorn')">
+                        <div class="card-title"><span class="card-icon">🐐</span> ♑ Capricorn - The Achiever</div>
+                        <div class="card-essence"><span class="element-badge earth">Earth</span> Cardinal - "I Use"</div>
+                        <div class="card-description">Ambitious, disciplined, practical, status-conscious</div>
+                    </div>
+                </div>
+
+                <div class="educational-content">
+                    <h3>💨 Air Signs - The Communicators</h3>
+                    <p>Air signs are intellectual, social, and idea-focused. They connect through communication and concepts.</p>
+                </div>
+                
+                <div class="mystical-grid">
+                    <div class="mystical-card" onclick="showSignDetail('gemini')">
+                        <div class="card-title"><span class="card-icon">👥</span> ♊ Gemini - The Communicator</div>
+                        <div class="card-essence"><span class="element-badge air">Air</span> Mutable - "I Think"</div>
+                        <div class="card-description">Curious, adaptable, social, mentally agile</div>
+                    </div>
+                    <div class="mystical-card" onclick="showSignDetail('libra')">
+                        <div class="card-title"><span class="card-icon">⚖️</span> ♎ Libra - The Diplomat</div>
+                        <div class="card-essence"><span class="element-badge air">Air</span> Cardinal - "I Balance"</div>
+                        <div class="card-description">Harmonious, partnership-focused, artistic, peace-loving</div>
+                    </div>
+                    <div class="mystical-card" onclick="showSignDetail('aquarius')">
+                        <div class="card-title"><span class="card-icon">🏺</span> ♒ Aquarius - The Innovator</div>
+                        <div class="card-essence"><span class="element-badge air">Air</span> Fixed - "I Know"</div>
+                        <div class="card-description">Independent, humanitarian, eccentric, future-focused</div>
+                    </div>
+                </div>
+
+                <div class="educational-content">
+                    <h3>🌊 Water Signs - The Feelers</h3>
+                    <p>Water signs are emotional, intuitive, and spiritually focused. They navigate through feelings and empathy.</p>
+                </div>
+                
+                <div class="mystical-grid">
+                    <div class="mystical-card" onclick="showSignDetail('cancer')">
+                        <div class="card-title"><span class="card-icon">🦀</span> ♋ Cancer - The Nurturer</div>
+                        <div class="card-essence"><span class="element-badge water">Water</span> Cardinal - "I Feel"</div>
+                        <div class="card-description">Emotional, protective, intuitive, home-loving</div>
+                    </div>
+                    <div class="mystical-card" onclick="showSignDetail('scorpio')">
+                        <div class="card-title"><span class="card-icon">🦂</span> ♏ Scorpio - The Transformer</div>
+                        <div class="card-essence"><span class="element-badge water">Water</span> Fixed - "I Desire"</div>
+                        <div class="card-description">Intense, mysterious, passionate, transformative</div>
+                    </div>
+                    <div class="mystical-card" onclick="showSignDetail('pisces')">
+                        <div class="card-title"><span class="card-icon">🐟</span> ♓ Pisces - The Mystic</div>
+                        <div class="card-essence"><span class="element-badge water">Water</span> Mutable - "I Believe"</div>
+                        <div class="card-description">Intuitive, compassionate, artistic, dreamy</div>
+                    </div>
+                </div>
+
+                <div class="educational-content">
+                    <h3>🔄 Understanding Modalities</h3>
+                    <p><strong>Cardinal Signs:</strong> Initiators who start things (Aries, Cancer, Libra, Capricorn)</p>
+                    <p><strong>Fixed Signs:</strong> Sustainers who maintain things (Taurus, Leo, Scorpio, Aquarius)</p>
+                    <p><strong>Mutable Signs:</strong> Adapters who change things (Gemini, Virgo, Sagittarius, Pisces)</p>
                 </div>
             </div>
         </div>
@@ -547,7 +887,8 @@
         <!-- Quiz Page -->
         <div id="quiz" class="page">
             <div class="learning-section">
-                <h2 class="section-title">🧠 Astrology Knowledge Quiz</h2>
+                <h2 class="section-title">🧠 Astrology Mastery Quiz</h2>
+                <p class="section-subtitle">Test your cosmic knowledge and track your progress</p>
                 
                 <div class="quiz-container" id="quizContainer">
                     <div class="quiz-question" id="quizQuestion">
@@ -571,7 +912,7 @@
                     </div>
                     
                     <div class="quiz-score" id="quizScore">
-                        Question 1 of 10 | Score: 0/0
+                        Question 1 of 15 | Score: 0/0
                     </div>
                 </div>
             </div>
@@ -581,6 +922,7 @@
         <div id="practice" class="page">
             <div class="learning-section">
                 <h2 class="section-title">🔮 Practice Zone</h2>
+                <p class="section-subtitle">Apply your knowledge with interactive tools</p>
                 
                 <div class="interactive-element">
                     <h3 style="color: #ffd700; text-align: center; margin-bottom: 1rem;">Interactive Zodiac Wheel</h3>
@@ -597,18 +939,33 @@
                 </div>
 
                 <div class="interactive-element">
-                    <h3 style="color: #ffd700; text-align: center; margin-bottom: 1rem;">Quick Chart Reading Practice</h3>
-                    <p style="text-align: center; color: #e6e6fa; margin-bottom: 2rem;">Practice interpreting planetary placements</p>
+                    <h3 style="color: #ffd700; text-align: center; margin-bottom: 1rem;">Chart Reading Practice</h3>
+                    <p style="text-align: center; color: #e6e6fa; margin-bottom: 2rem;">Practice interpreting random planetary placements</p>
                     
                     <div style="text-align: center;">
-                        <button class="btn" onclick="generateRandomChart()">Generate Random Chart</button>
+                        <button class="btn" onclick="generateRandomChart()">Generate Random Placement</button>
                     </div>
                     
                     <div id="chartPractice" style="display: none; margin-top: 2rem;">
-                        <div style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 1.5rem; border-left: 4px solid #ffd700;">
-                            <h4 style="color: #ffd700; margin-bottom: 1rem;">Practice Chart</h4>
+                        <div class="detailed-info">
+                            <h4 style="color: #ffd700; margin-bottom: 1rem;">Practice Placement</h4>
                             <div id="chartDetails"></div>
-                            <p style="margin-top: 1rem; color: #b19cd9; font-style: italic;">What story does this chart tell? Practice your interpretation!</p>
+                            <p style="margin-top: 1rem; color: #b19cd9; font-style: italic;">Practice: What does this placement suggest about this person's personality or life experience?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-element">
+                    <h3 style="color: #ffd700; text-align: center; margin-bottom: 1rem;">Element & Modality Explorer</h3>
+                    <p style="text-align: center; color: #e6e6fa; margin-bottom: 2rem;">Discover how elements and modalities combine</p>
+                    
+                    <div style="text-align: center;">
+                        <button class="btn" onclick="exploreElement()">Explore Random Combination</button>
+                    </div>
+                    
+                    <div id="elementExplorer" style="display: none; margin-top: 2rem;">
+                        <div class="detailed-info">
+                            <div id="elementDetails"></div>
                         </div>
                     </div>
                 </div>
@@ -618,7 +975,7 @@
 
     <div class="achievement-popup" id="achievementPopup">
         🌟 Achievement Unlocked! 🌟<br>
-        <span id="achievementText">Quiz Master!</span>
+        <span id="achievementText">Cosmic Explorer!</span>
     </div>
 
     <script>
@@ -628,8 +985,9 @@
         let quizScore = 0;
         let selectedAnswer = null;
         let userProgress = 0;
+        let visitedPages = new Set(['home']);
 
-        // Quiz questions database
+        // Enhanced quiz questions database
         const quizQuestions = [
             {
                 question: "Which house represents your career and public image?",
@@ -680,33 +1038,166 @@
                 explanation: "Scorpio is the Fixed Water sign - it has the emotional depth of water with the determination and intensity of a fixed sign."
             },
             {
-                question: "The 12th House is known as:",
-                options: ["The Treasure Chest", "The Mystical Ocean", "The Mountain Peak", "The Creative Playground"],
+                question: "What is your Rising Sign?",
+                options: ["Your Sun sign", "The sign on the eastern horizon at birth", "Your Moon sign", "Your most dominant planet"],
                 correct: 1,
-                explanation: "The 12th House is 'The Mystical Ocean' - it represents spirituality, the subconscious, hidden things, and connection to the divine."
+                explanation: "Your Rising Sign (Ascendant) is the zodiac sign that was rising on the eastern horizon at your exact time and place of birth."
             },
             {
-                question: "What does a bi-wheel chart show?",
-                options: ["Two different people's charts", "Your chart vs current planetary positions", "Past and future predictions", "Sun and Moon positions only"],
+                question: "Which planet is known as the 'Wounded Healer'?",
+                options: ["Saturn", "Pluto", "Chiron", "Neptune"],
+                correct: 2,
+                explanation: "Chiron is known as the 'Wounded Healer' - representing our deepest wound that becomes our greatest gift for helping others."
+            },
+            {
+                question: "Cardinal signs are known for:",
+                options: ["Starting things", "Maintaining things", "Changing things", "Ending things"],
+                correct: 0,
+                explanation: "Cardinal signs (Aries, Cancer, Libra, Capricorn) are the initiators who start new cycles and take action."
+            },
+            {
+                question: "The 12th House represents:",
+                options: ["Career and reputation", "Spirituality and subconscious", "Communication and learning", "Money and values"],
                 correct: 1,
-                explanation: "A bi-wheel shows your natal chart (inner wheel) compared with current planetary positions (outer wheel), perfect for timing and understanding current cosmic influences."
+                explanation: "The 12th House is the 'Mystical Ocean' representing spirituality, the subconscious, dreams, and hidden aspects of life."
+            },
+            {
+                question: "Which planet takes about 84 years to orbit the Sun?",
+                options: ["Saturn", "Neptune", "Uranus", "Pluto"],
+                correct: 2,
+                explanation: "Uranus takes about 84 years to complete its orbit, spending about 7 years in each zodiac sign."
+            },
+            {
+                question: "Fire signs include:",
+                options: ["Aries, Leo, Sagittarius", "Taurus, Virgo, Capricorn", "Gemini, Libra, Aquarius", "Cancer, Scorpio, Pisces"],
+                correct: 0,
+                explanation: "The Fire signs are Aries, Leo, and Sagittarius - they are passionate, energetic, and action-oriented."
+            },
+            {
+                question: "What does Saturn represent in astrology?",
+                options: ["Love and beauty", "Structure and discipline", "Communication and thinking", "Dreams and spirituality"],
+                correct: 1,
+                explanation: "Saturn represents structure, discipline, limitations, life lessons, and the areas where we must work hard to achieve mastery."
             }
         ];
 
-        // Zodiac signs data
+        // Comprehensive data for all signs, planets, houses
         const zodiacSigns = [
-            { name: "Aries", symbol: "♈", element: "Fire", description: "The Pioneer - Brave, impulsive, natural leader" },
-            { name: "Taurus", symbol: "♉", element: "Earth", description: "The Builder - Steady, sensual, determined" },
-            { name: "Gemini", symbol: "♊", element: "Air", description: "The Communicator - Curious, adaptable, social" },
-            { name: "Cancer", symbol: "♋", element: "Water", description: "The Nurturer - Emotional, protective, intuitive" },
-            { name: "Leo", symbol: "♌", element: "Fire", description: "The Performer - Dramatic, generous, creative" },
-            { name: "Virgo", symbol: "♍", element: "Earth", description: "The Perfectionist - Analytical, helpful, detail-oriented" },
-            { name: "Libra", symbol: "♎", element: "Air", description: "The Diplomat - Harmonious, partnership-focused, artistic" },
-            { name: "Scorpio", symbol: "♏", element: "Water", description: "The Transformer - Intense, mysterious, passionate" },
-            { name: "Sagittarius", symbol: "♐", element: "Fire", description: "The Adventurer - Philosophical, freedom-loving" },
-            { name: "Capricorn", symbol: "♑", element: "Earth", description: "The Achiever - Ambitious, disciplined, practical" },
-            { name: "Aquarius", symbol: "♒", element: "Air", description: "The Innovator - Independent, humanitarian, eccentric" },
-            { name: "Pisces", symbol: "♓", element: "Water", description: "The Mystic - Intuitive, compassionate, artistic" }
+            { 
+                name: "Aries", symbol: "♈", element: "Fire", modality: "Cardinal", 
+                description: "The Pioneer - Brave, impulsive, natural leader who initiates action",
+                traits: "Courageous, competitive, energetic, sometimes impatient",
+                ruling_planet: "Mars"
+            },
+            { 
+                name: "Taurus", symbol: "♉", element: "Earth", modality: "Fixed", 
+                description: "The Builder - Steady, sensual, determined and security-focused",
+                traits: "Reliable, practical, stubborn, loves luxury and comfort",
+                ruling_planet: "Venus"
+            },
+            { 
+                name: "Gemini", symbol: "♊", element: "Air", modality: "Mutable", 
+                description: "The Communicator - Curious, adaptable, social butterfly",
+                traits: "Intelligent, versatile, talkative, sometimes scattered",
+                ruling_planet: "Mercury"
+            },
+            { 
+                name: "Cancer", symbol: "♋", element: "Water", modality: "Cardinal", 
+                description: "The Nurturer - Emotional, protective, intuitive home-lover",
+                traits: "Caring, empathetic, moody, family-oriented",
+                ruling_planet: "Moon"
+            },
+            { 
+                name: "Leo", symbol: "♌", element: "Fire", modality: "Fixed", 
+                description: "The Performer - Dramatic, generous, creative royal",
+                traits: "Confident, generous, dramatic, needs appreciation",
+                ruling_planet: "Sun"
+            },
+            { 
+                name: "Virgo", symbol: "♍", element: "Earth", modality: "Mutable", 
+                description: "The Perfectionist - Analytical, helpful, detail-oriented service provider",
+                traits: "Practical, perfectionist, helpful, sometimes critical",
+                ruling_planet: "Mercury"
+            },
+            { 
+                name: "Libra", symbol: "♎", element: "Air", modality: "Cardinal", 
+                description: "The Diplomat - Harmonious, partnership-focused, artistic peace-lover",
+                traits: "Diplomatic, artistic, indecisive, seeks balance",
+                ruling_planet: "Venus"
+            },
+            { 
+                name: "Scorpio", symbol: "♏", element: "Water", modality: "Fixed", 
+                description: "The Transformer - Intense, mysterious, passionate depth-seeker",
+                traits: "Intense, passionate, secretive, transformative",
+                ruling_planet: "Pluto (traditional: Mars)"
+            },
+            { 
+                name: "Sagittarius", symbol: "♐", element: "Fire", modality: "Mutable", 
+                description: "The Adventurer - Philosophical, freedom-loving, optimistic explorer",
+                traits: "Optimistic, adventurous, blunt, seeks meaning",
+                ruling_planet: "Jupiter"
+            },
+            { 
+                name: "Capricorn", symbol: "♑", element: "Earth", modality: "Cardinal", 
+                description: "The Achiever - Ambitious, disciplined, practical climber",
+                traits: "Ambitious, disciplined, practical, status-conscious",
+                ruling_planet: "Saturn"
+            },
+            { 
+                name: "Aquarius", symbol: "♒", element: "Air", modality: "Fixed", 
+                description: "The Innovator - Independent, humanitarian, eccentric future-thinker",
+                traits: "Independent, innovative, humanitarian, sometimes detached",
+                ruling_planet: "Uranus (traditional: Saturn)"
+            },
+            { 
+                name: "Pisces", symbol: "♓", element: "Water", modality: "Mutable", 
+                description: "The Mystic - Intuitive, compassionate, artistic dreamer",
+                traits: "Intuitive, compassionate, artistic, sometimes escapist",
+                ruling_planet: "Neptune (traditional: Jupiter)"
+            }
+        ];
+
+        const planets = [
+            { name: "Sun", symbol: "☉", description: "Your core identity, ego, and life force", element: "🌟" },
+            { name: "Moon", symbol: "☽", description: "Your emotions, instincts, and subconscious", element: "🌙" },
+            { name: "Mercury", symbol: "☿", description: "Your communication and thinking patterns", element: "💭" },
+            { name: "Venus", symbol: "♀", description: "Your love nature and aesthetic preferences", element: "💖" },
+            { name: "Mars", symbol: "♂", description: "Your drive, action, and assertion style", element: "⚔️" },
+            { name: "Jupiter", symbol: "♃", description: "Your growth, expansion, and wisdom", element: "🎯" },
+            { name: "Saturn", symbol: "♄", description: "Your structure, discipline, and life lessons", element: "🏗️" },
+            { name: "Uranus", symbol: "♅", description: "Your innovation and revolutionary spirit", element: "⚡" },
+            { name: "Neptune", symbol: "♆", description: "Your dreams, spirituality, and imagination", element: "🌊" },
+            { name: "Pluto", symbol: "♇", description: "Your transformation and regenerative power", element: "🔥" },
+            { name: "Chiron", symbol: "⚕", description: "Your healing abilities and deepest wounds", element: "🩹" },
+            { name: "Eris", symbol: "⚔", description: "Your disruptive force and fight for truth", element: "⚡" }
+        ];
+
+        const houses = [
+            { number: 1, name: "Self & Identity", theme: "How you appear and approach life" },
+            { number: 2, name: "Resources & Values", theme: "Money, possessions, and self-worth" },
+            { number: 3, name: "Communication", theme: "Learning, siblings, and daily interactions" },
+            { number: 4, name: "Home & Roots", theme: "Family, emotional foundation, private life" },
+            { number: 5, name: "Creativity & Joy", theme: "Romance, children, creative expression" },
+            { number: 6, name: "Health & Service", theme: "Work, daily routines, wellness" },
+            { number: 7, name: "Partnerships", theme: "Marriage, business partners, relationships" },
+            { number: 8, name: "Transformation", theme: "Shared resources, psychology, rebirth" },
+            { number: 9, name: "Higher Learning", theme: "Philosophy, travel, higher education" },
+            { number: 10, name: "Career & Reputation", theme: "Public image, professional life" },
+            { number: 11, name: "Community & Dreams", theme: "Friends, groups, hopes and wishes" },
+            { number: 12, name: "Spirituality", theme: "Subconscious, dreams, hidden aspects" }
+        ];
+
+        const elements = [
+            { name: "Fire", signs: ["Aries", "Leo", "Sagittarius"], description: "Passionate, energetic, action-oriented" },
+            { name: "Earth", signs: ["Taurus", "Virgo", "Capricorn"], description: "Practical, stable, material-focused" },
+            { name: "Air", signs: ["Gemini", "Libra", "Aquarius"], description: "Intellectual, social, idea-focused" },
+            { name: "Water", signs: ["Cancer", "Scorpio", "Pisces"], description: "Emotional, intuitive, spiritually-focused" }
+        ];
+
+        const modalities = [
+            { name: "Cardinal", signs: ["Aries", "Cancer", "Libra", "Capricorn"], description: "Initiators who start things" },
+            { name: "Fixed", signs: ["Taurus", "Leo", "Scorpio", "Aquarius"], description: "Sustainers who maintain things" },
+            { name: "Mutable", signs: ["Gemini", "Virgo", "Sagittarius", "Pisces"], description: "Adapters who change things" }
         ];
 
         // Navigation functions
@@ -726,15 +1217,16 @@
             document.querySelector(`[onclick="showPage('${pageId}')"]`).classList.add('active');
             
             currentPage = pageId;
+            visitedPages.add(pageId);
             updateProgress();
         }
 
         function updateProgress() {
-            const totalPages = 4;
-            const visitedPages = new Set();
-            visitedPages.add(currentPage);
-            const progress = (visitedPages.size / totalPages) * 100;
-            document.getElementById('progressFill').style.width = `${Math.min(progress + userProgress, 100)}%`;
+            const totalPages = 7;
+            const baseProgress = (visitedPages.size / totalPages) * 50; // 50% for page visits
+            const activityProgress = userProgress; // Activities add to this
+            const totalProgress = Math.min(baseProgress + activityProgress, 100);
+            document.getElementById('progressFill').style.width = `${totalProgress}%`;
         }
 
         // Quiz functions
@@ -782,7 +1274,7 @@
             document.getElementById('nextBtn').style.display = 'inline-block';
             
             updateQuizScore();
-            userProgress += 5;
+            userProgress += 2;
             updateProgress();
         }
 
@@ -833,12 +1325,16 @@
             
             if (percentage >= 90) {
                 message = "🌟 Astrology Master! 🌟";
+                userProgress += 25;
             } else if (percentage >= 70) {
                 message = "✨ Cosmic Scholar! ✨";
+                userProgress += 20;
             } else if (percentage >= 50) {
                 message = "🌙 Star Student! 🌙";
+                userProgress += 15;
             } else {
                 message = "🌱 Keep Learning! 🌱";
+                userProgress += 10;
             }
             
             document.getElementById('quizContainer').innerHTML = `
@@ -847,13 +1343,19 @@
                     <p style="font-size: 1.5rem; color: #e6e6fa; margin-bottom: 1rem;">
                         You scored ${quizScore} out of ${quizQuestions.length} (${percentage}%)
                     </p>
+                    <div style="margin: 1rem 0;">
+                        <p style="color: #b19cd9;">
+                            ${percentage >= 70 ? "Excellent! You've mastered the basics of astrology." : 
+                              percentage >= 50 ? "Good work! Review the lessons and try again." : 
+                              "Keep studying! Visit the learning sections to improve."}
+                        </p>
+                    </div>
                     <button class="btn" onclick="restartQuiz()">Take Quiz Again</button>
                     <button class="btn" onclick="showPage('practice')">Practice More</button>
                 </div>
             `;
             
             showAchievement(message);
-            userProgress += 20;
             updateProgress();
         }
 
@@ -880,32 +1382,60 @@
         // Interactive elements
         function showHouseDetail(houseNumber) {
             const houseInfo = {
-                1: { name: "1st House - The Mask", description: "This is your Ascendant or Rising Sign! It's how others first see you, your physical appearance, and your natural approach to new situations. Think of it as the costume you wear when you step onto the world's stage." },
-                2: { name: "2nd House - Treasure Chest", description: "Your personal values, money, possessions, and self-worth live here. This house shows what you truly value in life and how you handle material resources. It's also about your relationship with money and material security." },
-                3: { name: "3rd House - Communication Hub", description: "This house governs how you communicate, learn, and connect with siblings and neighbors. It's about short trips, daily conversations, and how your mind naturally processes information. Your writing style and learning preferences are found here." },
-                4: { name: "4th House - Roots & Sanctuary", description: "Your home, family roots, and emotional foundation. This house represents where you come from, your relationship with your mother or nurturing parent, and what makes you feel emotionally secure. It's your private retreat from the world." },
-                5: { name: "5th House - Creative Playground", description: "Romance, creativity, children, and joy! This house is all about what makes your heart sing - your creative expression, romantic style, relationship with children, and what brings you pure pleasure and fun." },
-                6: { name: "6th House - Daily Rituals", description: "Your work environment, health habits, daily routines, and service to others. This house shows how you maintain your body and mind, your work ethic, and how you serve the world through your daily actions." }
+                1: { name: "1st House - The Self", description: "Your Ascendant/Rising Sign lives here! This house represents your physical appearance, first impressions, and natural approach to life. It's the 'mask' you wear when meeting new people and how you instinctively react to new situations. Your Rising Sign colors everything in your chart." },
+                2: { name: "2nd House - Resources & Values", description: "This house governs your relationship with money, possessions, and personal values. It shows what you truly value in life, how you handle material resources, and your sense of self-worth. It's also about your natural talents and earning ability." },
+                3: { name: "3rd House - Communication", description: "Your everyday communication style, learning preferences, and relationships with siblings live here. This house rules short trips, daily conversations, writing, and how your mind naturally processes information. It's about your immediate environment and local community." },
+                4: { name: "4th House - Home & Roots", description: "Your family background, emotional foundation, and relationship with home. This house represents your private life, your mother or nurturing parent, and what makes you feel emotionally secure. It's your safe haven and ancestral roots." },
+                5: { name: "5th House - Creativity & Joy", description: "Romance, creativity, children, and pure joy! This house shows your creative expression, romantic style, relationship with children (your own or others), and what activities bring you genuine pleasure and fun. It's about self-expression and heart-centered activities." },
+                6: { name: "6th House - Health & Service", description: "Your daily work environment, health habits, and service to others. This house governs your job (not career), daily routines, fitness regimen, and how you maintain your physical and mental well-being. It's about practical service and self-improvement." },
+                7: { name: "7th House - Partnerships", description: "All one-on-one relationships, including marriage, business partnerships, and even open enemies. This house shows what you seek in a partner and how you approach committed relationships. It represents the 'other' and what you project onto partners." },
+                8: { name: "8th House - Transformation", description: "Deep transformation, shared resources, psychology, and the occult. This house rules joint finances, inheritance, taxes, and psychological depth. It's about death and rebirth, not necessarily literal death, but profound life changes and regeneration." },
+                9: { name: "9th House - Higher Learning", description: "Philosophy, higher education, foreign travel, and your personal belief system. This house represents your search for meaning, relationship with religion or spirituality, and experiences that expand your worldview. It's about wisdom and truth-seeking." },
+                10: { name: "10th House - Career & Reputation", description: "Your professional life, public image, and relationship with authority. This house shows your career calling, how you're seen in the public eye, and your father or authoritative parent. It represents your legacy and contribution to society." },
+                11: { name: "11th House - Community & Dreams", description: "Friends, groups, hopes, and dreams for the future. This house governs your social circles, involvement in organizations, and humanitarian ideals. It's about collective consciousness and your role in larger social movements." },
+                12: { name: "12th House - Spirituality", description: "The subconscious, spirituality, hidden enemies, and self-undoing. This house represents your connection to the divine, dreams, meditation, and things that operate behind the scenes. It can indicate hidden strengths or unconscious patterns that need healing." }
             };
             
             const info = houseInfo[houseNumber];
             showAchievement(`Learning about ${info.name}!`);
             
-            // You could expand this to show detailed popups or modal windows
             alert(`${info.name}\n\n${info.description}`);
+            userProgress += 1;
+            updateProgress();
         }
 
         function showPlanetDetail(planet) {
             const planetInfo = {
-                sun: { name: "☉ The Sun", description: "Your core identity and life force! The Sun represents your ego, vitality, and the essential 'you' that shines through everything you do. It's your conscious mind and the hero's journey of your life story." },
-                moon: { name: "☽ The Moon", description: "Your emotional landscape and inner world. The Moon governs your instincts, subconscious reactions, and how you process feelings. It shows what you need to feel emotionally secure and nurtured." },
-                mercury: { name: "☿ Mercury", description: "Your mental processes and communication style. Mercury rules how you think, learn, speak, and connect with others. It's your intellectual approach to life and how you share your thoughts with the world." },
-                venus: { name: "♀ Venus", description: "Your love nature and aesthetic sense. Venus shows how you express affection, what you find beautiful, and how you attract others. It's your artistic taste and relationship style." }
+                sun: { name: "☉ The Sun", description: "Your core identity and life force! The Sun represents your ego, vitality, creativity, and the essential 'you' that shines through everything you do. It's your conscious mind, your will to live, and your individual self-expression. Where your Sun is placed shows what energizes you and where you shine brightest." },
+                moon: { name: "☽ The Moon", description: "Your emotional landscape and inner world. The Moon governs your instincts, subconscious reactions, emotional needs, and how you process feelings. It shows what you need to feel emotionally secure and nurtured. Your Moon sign often feels more 'true' to you than your Sun sign in private moments." },
+                mercury: { name: "☿ Mercury", description: "Your mental processes and communication style. Mercury rules how you think, learn, speak, write, and connect with others intellectually. It governs your curiosity, wit, and ability to process and share information. It's your mental agility and communication preferences." },
+                venus: { name: "♀ Venus", description: "Your love nature and aesthetic sense. Venus shows how you express affection, what you find beautiful, your artistic taste, and how you attract others. It governs romantic relationships, friendships, art, and luxury. It's about harmony, pleasure, and what brings you joy." },
+                mars: { name: "♂ Mars", description: "Your drive, action, and warrior spirit. Mars represents how you assert yourself, pursue goals, express anger, and channel sexual energy. It's your motivation, competitive nature, and how you fight for what you want. Mars shows your courage and physical energy." },
+                jupiter: { name: "♃ Jupiter", description: "Your expansion and wisdom. Jupiter represents growth, optimism, luck, higher learning, and your philosophical outlook. It shows where you tend to expand, what brings you joy and meaning, and your teaching abilities. Jupiter is about abundance, generosity, and broadening horizons." },
+                saturn: { name: "♄ Saturn", description: "Your structure and life lessons. Saturn represents discipline, responsibility, limitations, and areas where you must work hard to achieve mastery. It's your inner authority, sense of duty, and the challenges that ultimately become your greatest strengths. Saturn teaches through restriction and perseverance." },
+                uranus: { name: "♅ Uranus", description: "Your revolutionary spirit and uniqueness. Uranus represents innovation, rebellion, sudden changes, and your desire for freedom. It shows where you break from convention, express your individuality, and contribute to progressive change. Uranus brings flashes of insight and unconventional thinking." },
+                neptune: { name: "♆ Neptune", description: "Your dreams and spiritual connection. Neptune represents imagination, spirituality, compassion, and your connection to the divine. It governs dreams, artistic inspiration, and psychic abilities, but can also indicate where you might experience confusion or escapism. Neptune dissolves boundaries." },
+                pluto: { name: "♇ Pluto", description: "Your transformation and regenerative power. Pluto represents deep psychological change, power dynamics, and your ability to transform and regenerate. It shows where you experience profound changes, face your shadow, and ultimately find your hidden strength. Pluto is about death and rebirth cycles." },
+                chiron: { name: "⚕ Chiron", description: "Your wounded healer. Chiron represents your deepest wound that becomes your greatest gift for helping others. It shows where you've experienced pain that leads to wisdom and healing abilities. Chiron teaches that our wounds, when healed, become sources of compassion and teaching." },
+                eris: { name: "⚔ Eris", description: "Your disruptive force for truth. Eris represents discord, competition, and the feminine rage that fights injustice. It shows where you challenge unfair systems, compete fiercely, and refuse to be excluded or diminished. Eris brings necessary chaos that leads to positive change." }
             };
             
             const info = planetInfo[planet];
             showAchievement(`Exploring ${info.name}!`);
             alert(`${info.name}\n\n${info.description}`);
+            userProgress += 1;
+            updateProgress();
+        }
+
+        function showSignDetail(sign) {
+            const signInfo = zodiacSigns.find(s => s.name.toLowerCase() === sign);
+            if (signInfo) {
+                const detailedInfo = `${signInfo.symbol} ${signInfo.name} - ${signInfo.description}\n\nElement: ${signInfo.element}\nModality: ${signInfo.modality}\nRuling Planet: ${signInfo.ruling_planet}\n\nTraits: ${signInfo.traits}`;
+                showAchievement(`Discovered ${signInfo.name}!`);
+                alert(detailedInfo);
+                userProgress += 1;
+                updateProgress();
+            }
         }
 
         function spinWheel() {
@@ -916,34 +1446,75 @@
                 <div>
                     ${randomSign.symbol}<br>
                     <strong>${randomSign.name}</strong><br>
-                    <small>${randomSign.element}</small><br>
-                    <em>${randomSign.description}</em>
+                    <small>${randomSign.element} ${randomSign.modality}</small><br>
+                    <em style="font-size: 0.8rem;">${randomSign.description.split(' - ')[1].substring(0, 40)}...</em>
                 </div>
             `;
             
             showAchievement(`Discovered ${randomSign.name}!`);
-            userProgress += 2;
+            userProgress += 1;
             updateProgress();
         }
 
         function generateRandomChart() {
-            const planets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars'];
-            const houses = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th'];
             const randomPlanet = planets[Math.floor(Math.random() * planets.length)];
             const randomSign = zodiacSigns[Math.floor(Math.random() * zodiacSigns.length)];
             const randomHouse = houses[Math.floor(Math.random() * houses.length)];
             
             document.getElementById('chartPractice').style.display = 'block';
             document.getElementById('chartDetails').innerHTML = `
-                <p><strong>${randomPlanet}</strong> in <strong>${randomSign.name}</strong> in the <strong>${randomHouse} House</strong></p>
-                <p style="margin-top: 0.5rem; color: #b19cd9;">
-                    ${randomSign.symbol} ${randomSign.description}
+                <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+                    <strong>${randomPlanet.name}</strong> in <strong>${randomSign.name}</strong> in the <strong>${randomHouse.number}${getOrdinalSuffix(randomHouse.number)} House</strong>
+                </p>
+                <p style="margin-bottom: 0.5rem;">
+                    <strong>Planet:</strong> ${randomPlanet.description}
+                </p>
+                <p style="margin-bottom: 0.5rem;">
+                    <strong>Sign:</strong> ${randomSign.description}
+                </p>
+                <p style="margin-bottom: 0.5rem;">
+                    <strong>House:</strong> ${randomHouse.theme}
+                </p>
+                <p style="margin-top: 1rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px; border-left: 3px solid #ffd700;">
+                    <strong>Interpretation Hint:</strong> This person's ${randomPlanet.name.toLowerCase()} energy (${randomPlanet.description.toLowerCase()}) expresses through ${randomSign.name} qualities (${randomSign.traits.toLowerCase()}) in the area of ${randomHouse.theme.toLowerCase()}.
                 </p>
             `;
             
             showAchievement('Generated Practice Chart!');
-            userProgress += 3;
+            userProgress += 2;
             updateProgress();
+        }
+
+        function exploreElement() {
+            const randomElement = elements[Math.floor(Math.random() * elements.length)];
+            const randomModality = modalities[Math.floor(Math.random() * modalities.length)];
+            
+            // Find a sign that matches both
+            const matchingSign = zodiacSigns.find(sign => 
+                sign.element === randomElement.name && sign.modality === randomModality.name
+            );
+            
+            document.getElementById('elementExplorer').style.display = 'block';
+            document.getElementById('elementDetails').innerHTML = `
+                <h4 style="color: #ffd700; margin-bottom: 1rem;">${randomElement.name} ${randomModality.name}: ${matchingSign.name}</h4>
+                <p><strong>Element - ${randomElement.name}:</strong> ${randomElement.description}</p>
+                <p><strong>Modality - ${randomModality.name}:</strong> ${randomModality.description}</p>
+                <p style="margin-top: 1rem;"><strong>Signs in this Element:</strong> ${randomElement.signs.join(', ')}</p>
+                <p><strong>Signs in this Modality:</strong> ${randomModality.signs.join(', ')}</p>
+                <div style="margin-top: 1rem; padding: 1rem; background: rgba(138, 43, 226, 0.1); border-radius: 8px;">
+                    <p><strong>${matchingSign.name} combines:</strong> ${randomElement.description.toLowerCase()} with the ${randomModality.description.toLowerCase()} approach, creating ${matchingSign.description.toLowerCase()}.</p>
+                </div>
+            `;
+            
+            showAchievement(`Explored ${randomElement.name} ${randomModality.name}!`);
+            userProgress += 2;
+            updateProgress();
+        }
+
+        function getOrdinalSuffix(num) {
+            const suffixes = ['th', 'st', 'nd', 'rd'];
+            const mod100 = num % 100;
+            return (mod100 >= 11 && mod100 <= 13) ? 'th' : suffixes[num % 10] || 'th';
         }
 
         function showAchievement(text) {
@@ -961,7 +1532,7 @@
             loadQuestion();
             updateProgress();
             
-            // Add some initial achievements for engagement
+            // Welcome message
             setTimeout(() => {
                 showAchievement('Welcome to Cosmic Academy! 🌟');
             }, 1000);
